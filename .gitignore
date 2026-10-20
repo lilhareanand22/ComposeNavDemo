@@ -1,0 +1,63 @@
+# Built application files
+*.apk
+*.aab
+*.ap_
+
+# Files for the ART/DALVIK VM
+*.dex
+
+# Java class files
+*.class
+
+# Generated files
+/build/
+/app/build/
+.gradle/
+.kotlin/
+
+# Local configuration file (SDK path, secrets, etc.)
+local.properties
+
+# Log files
+*.log
+
+# Memory dumps & Heap dumps
+*.hprof
+*.hprof.zip
+java_pid*.hprof
+*.dump
+
+# Android Studio / IntelliJ IDEA project files
+.idea/caches/
+.idea/libraries/
+.idea/modules.xml
+.idea/workspace.xml
+.idea/nav-template.xml
+.idea/assetWizardSettings.xml
+.idea/deploymentTargetSelector.xml
+.idea/deviceManager.xml
+.idea/deviceStreaming.xml
+
+# Keystore / Signing files
+*.jks
+*.keystore
+*.pepk
+
+# OS-generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# AI Agents / Assistants artifacts & scratch directories
+.agents/
+.artifacts/
+.gemini/
+.claude/
+.cursor/
+.windsurf/
+.aichat/
+.copilot/
