@@ -6,3 +6,28 @@ plugins {
     alias(libs.plugins.ktlint) apply false
     alias(libs.plugins.detekt) apply false
 }
+
+// Define a custom task named 'verifyAll' that chains your verification checks
+tasks.register("verifyAll") {
+    group = "Verification"
+    description = "Runs compilation, unit tests, ktlint, detekt, and lint checks sequentially."
+
+    // Define the execution order of your tools
+    dependsOn(
+        ":app:assembleDebug",
+        ":app:testDebugUnitTest",
+        ":app:ktlintCheck",
+        ":app:detekt",
+        ":app:lintDebug"
+    )
+
+    // Optional: Print a message when the pipeline starts
+    doFirst {
+        println("=== Starting Full Android Verification Pipeline via Gradle ===")
+    }
+
+    // Optional: Print a success message if all tasks succeed
+    doLast {
+        println("=== All Verification Checks Passed Successfully! ===")
+    }
+}
