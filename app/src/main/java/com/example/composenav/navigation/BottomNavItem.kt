@@ -5,11 +5,12 @@ import androidx.compose.material.icons.filled.Explore
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.navigation3.runtime.NavKey
 
 data class BottomNavItem(
     val label: String,
     val icon: ImageVector,
-    val route: Any,
+    val route: NavKey,
 )
 
 val bottomNavItems =
