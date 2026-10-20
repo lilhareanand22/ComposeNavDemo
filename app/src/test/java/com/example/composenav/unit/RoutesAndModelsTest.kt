@@ -2,6 +2,7 @@ package com.example.composenav.unit
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.navigation3.runtime.NavKey
 import com.example.composenav.navigation.AuthGraph
 import com.example.composenav.navigation.BottomNavItem
 import com.example.composenav.navigation.ExploreRoute
@@ -31,6 +32,15 @@ class RoutesAndModelsTest {
         assertNotNull(ExploreRoute)
         assertNotNull(ProfileRoute)
         assertNotNull(SettingsRoute)
+
+        assertTrue(AuthGraph is NavKey)
+        assertTrue(LoginRoute is NavKey)
+        assertTrue(RegisterRoute is NavKey)
+        assertTrue(MainGraph is NavKey)
+        assertTrue(HomeRoute is NavKey)
+        assertTrue(ExploreRoute is NavKey)
+        assertTrue(ProfileRoute is NavKey)
+        assertTrue(SettingsRoute is NavKey)
     }
 
     @Test
@@ -38,6 +48,7 @@ class RoutesAndModelsTest {
         val route = ProductDetailRoute(productId = 42, productName = "Kotlin Book")
         assertEquals(42, route.productId)
         assertEquals("Kotlin Book", route.productName)
+        assertTrue(route is NavKey)
 
         val copyRoute = route.copy(productId = 99)
         assertEquals(99, copyRoute.productId)

@@ -1,26 +1,27 @@
 package com.example.composenav.navigation
 
+import androidx.navigation3.runtime.NavKey
 import kotlinx.serialization.Serializable
 
 // ─── Auth Graph ───────────────────────────────────────────────
-@Serializable object AuthGraph
+@Serializable object AuthGraph : NavKey
 
-@Serializable object LoginRoute
+@Serializable object LoginRoute : NavKey
 
-@Serializable object RegisterRoute
+@Serializable object RegisterRoute : NavKey
 
 // ─── Main Graph ───────────────────────────────────────────────
-@Serializable object MainGraph
+@Serializable object MainGraph : NavKey
 
 // Bottom nav tabs
-@Serializable object HomeRoute
+@Serializable object HomeRoute : NavKey
 
-@Serializable object ExploreRoute
+@Serializable object ExploreRoute : NavKey
 
-@Serializable object ProfileRoute
+@Serializable object ProfileRoute : NavKey
 
 // Detail screen (with required argument)
-@Serializable data class ProductDetailRoute(val productId: Int, val productName: String)
+@Serializable data class ProductDetailRoute(val productId: Int, val productName: String) : NavKey
 
 // Settings (nested inside Profile tab)
-@Serializable object SettingsRoute
+@Serializable object SettingsRoute : NavKey

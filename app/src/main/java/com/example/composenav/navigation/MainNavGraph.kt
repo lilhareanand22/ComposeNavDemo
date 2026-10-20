@@ -2,10 +2,10 @@ package com.example.composenav.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.NavHostController
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.ui.NavDisplay
 import com.example.composenav.screens.main.ExploreScreen
 import com.example.composenav.screens.main.HomeScreen
 import com.example.composenav.screens.main.ProductDetailScreen
@@ -14,43 +14,57 @@ import com.example.composenav.screens.main.SettingsScreen
 
 @Composable
 fun MainNavGraph(
-    navController: NavHostController,
+    currentBackStack: NavBackStack<NavKey>,
     modifier: Modifier = Modifier,
 ) {
-    NavHost(
-        navController = navController,
-        startDestination = HomeRoute,
+    val entryProvider =
+        entryProvider {
+            entry<HomeRoute> {
+                HomeScreen(
+                    onProductClick = { id, name ->
+                        currentBackStack.add(ProductDetailRoute(id, name))
+                    },
+                )
+            }
+
+            entry<ExploreRoute> {
+                ExploreScreen()
+            }
+
+            entry<ProfileRoute> {
+                ProfileScreen(
+                    onGoToSettings = {
+                        currentBackStack.add(SettingsRoute)
+                    },
+                )
+            }
+
+            entry<ProductDetailRoute> { key ->
+                ProductDetailScreen(
+                    productId = key.productId,
+                    productName = key.productName,
+                    onBack = {
+                        if (currentBackStack.size > 1) {
+                            currentBackStack.removeAt(currentBackStack.lastIndex)
+                        }
+                    },
+                )
+            }
+
+            entry<SettingsRoute> {
+                SettingsScreen(
+                    onBack = {
+                        if (currentBackStack.size > 1) {
+                            currentBackStack.removeAt(currentBackStack.lastIndex)
+                        }
+                    },
+                )
+            }
+        }
+
+    NavDisplay(
+        backStack = currentBackStack,
         modifier = modifier,
-    ) {
-        composable<HomeRoute> {
-            HomeScreen(
-                onProductClick = { id, name ->
-                    navController.navigate(ProductDetailRoute(id, name))
-                },
-            )
-        }
-
-        composable<ExploreRoute> {
-            ExploreScreen()
-        }
-
-        composable<ProfileRoute> {
-            ProfileScreen(
-                onGoToSettings = { navController.navigate(SettingsRoute) },
-            )
-        }
-
-        composable<ProductDetailRoute> { backStackEntry ->
-            val route: ProductDetailRoute = backStackEntry.toRoute()
-            ProductDetailScreen(
-                productId = route.productId,
-                productName = route.productName,
-                onBack = { navController.popBackStack() },
-            )
-        }
-
-        composable<SettingsRoute> {
-            SettingsScreen(onBack = { navController.popBackStack() })
-        }
-    }
+        entryProvider = entryProvider,
+    )
 }

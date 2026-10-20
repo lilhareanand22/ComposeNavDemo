@@ -1,52 +1,57 @@
 package com.example.composenav.navigation
 
 import androidx.compose.runtime.Composable
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
-import androidx.navigation.compose.rememberNavController
+import androidx.compose.ui.Modifier
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import androidx.navigation3.runtime.entryProvider
+import androidx.navigation3.runtime.rememberNavBackStack
+import androidx.navigation3.ui.NavDisplay
 import com.example.composenav.screens.auth.LoginScreen
 import com.example.composenav.screens.auth.RegisterScreen
 import com.example.composenav.screens.main.MainScreen
 
 @Composable
-fun AppNavigation() {
-    val rootNavController = rememberNavController()
-
-    NavHost(
-        navController = rootNavController,
-        startDestination = AuthGraph,
-    ) {
-        // ── Nested Auth Graph ──────────────────────────────────
-        navigation<AuthGraph>(startDestination = LoginRoute) {
-            composable<LoginRoute> {
+fun AppNavigation(
+    modifier: Modifier = Modifier,
+    backStack: NavBackStack<NavKey> = rememberNavBackStack(LoginRoute),
+) {
+    val entryProvider =
+        entryProvider {
+            entry<LoginRoute> {
                 LoginScreen(
                     onLoginSuccess = {
-                        rootNavController.navigate(MainGraph) {
-                            popUpTo(AuthGraph) { inclusive = true }
-                        }
+                        backStack.clear()
+                        backStack.add(MainGraph)
                     },
                     onGoToRegister = {
-                        rootNavController.navigate(RegisterRoute)
+                        backStack.add(RegisterRoute)
                     },
                 )
             }
 
-            composable<RegisterRoute> {
+            entry<RegisterRoute> {
                 RegisterScreen(
                     onRegistered = {
-                        rootNavController.navigate(MainGraph) {
-                            popUpTo(AuthGraph) { inclusive = true }
+                        backStack.clear()
+                        backStack.add(MainGraph)
+                    },
+                    onBack = {
+                        if (backStack.size > 1) {
+                            backStack.removeAt(backStack.lastIndex)
                         }
                     },
-                    onBack = { rootNavController.popBackStack() },
                 )
+            }
+
+            entry<MainGraph> {
+                MainScreen()
             }
         }
 
-        // ── Nested Main Graph ──────────────────────────────────
-        composable<MainGraph> {
-            MainScreen()
-        }
-    }
+    NavDisplay(
+        backStack = backStack,
+        modifier = modifier,
+        entryProvider = entryProvider,
+    )
 }
