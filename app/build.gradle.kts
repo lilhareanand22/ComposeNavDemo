@@ -8,6 +8,7 @@ plugins {
 android {
     namespace = "com.example.composenav"
     compileSdk = 35
+    buildToolsVersion = "35.0.0"
 
     defaultConfig {
         applicationId = "com.example.composenav"
@@ -28,6 +29,16 @@ android {
     }
     kotlinOptions {
         jvmTarget = "11"
+    }
+    lint {
+        abortOnError = true
+        checkAllWarnings = true
+        warningsAsErrors = false
+        explainIssues = true
+        showAll = true
+        textReport = true
+        xmlReport = true
+        htmlReport = true
     }
     buildFeatures {
         compose = true
