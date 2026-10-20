@@ -15,11 +15,10 @@ fun AppNavigation() {
 
     NavHost(
         navController = rootNavController,
-        startDestination = AuthGraph
+        startDestination = AuthGraph,
     ) {
         // ── Nested Auth Graph ──────────────────────────────────
         navigation<AuthGraph>(startDestination = LoginRoute) {
-
             composable<LoginRoute> {
                 LoginScreen(
                     onLoginSuccess = {
@@ -29,7 +28,7 @@ fun AppNavigation() {
                     },
                     onGoToRegister = {
                         rootNavController.navigate(RegisterRoute)
-                    }
+                    },
                 )
             }
 
@@ -40,7 +39,7 @@ fun AppNavigation() {
                             popUpTo(AuthGraph) { inclusive = true }
                         }
                     },
-                    onBack = { rootNavController.popBackStack() }
+                    onBack = { rootNavController.popBackStack() },
                 )
             }
         }

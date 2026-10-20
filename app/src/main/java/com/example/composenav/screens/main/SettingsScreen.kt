@@ -22,20 +22,21 @@ fun SettingsScreen(onBack: () -> Unit) {
                     IconButton(onClick = onBack) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
-                }
+                },
             )
-        }
+        },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(16.dp)
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(16.dp),
         ) {
             Text(
                 "Main Graph → SettingsRoute",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.outline
+                color = MaterialTheme.colorScheme.outline,
             )
             Spacer(Modifier.height(16.dp))
 
@@ -46,7 +47,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         supportingContent = { Text("Receive app notifications") },
                         trailingContent = {
                             Switch(checked = notifications, onCheckedChange = { notifications = it })
-                        }
+                        },
                     )
                     HorizontalDivider()
                     ListItem(
@@ -54,7 +55,7 @@ fun SettingsScreen(onBack: () -> Unit) {
                         supportingContent = { Text("Enable dark theme") },
                         trailingContent = {
                             Switch(checked = darkMode, onCheckedChange = { darkMode = it })
-                        }
+                        },
                     )
                 }
             }

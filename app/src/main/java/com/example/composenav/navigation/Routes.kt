@@ -4,7 +4,9 @@ import kotlinx.serialization.Serializable
 
 // ─── Auth Graph ───────────────────────────────────────────────
 @Serializable object AuthGraph
+
 @Serializable object LoginRoute
+
 @Serializable object RegisterRoute
 
 // ─── Main Graph ───────────────────────────────────────────────
@@ -12,7 +14,9 @@ import kotlinx.serialization.Serializable
 
 // Bottom nav tabs
 @Serializable object HomeRoute
+
 @Serializable object ExploreRoute
+
 @Serializable object ProfileRoute
 
 // Detail screen (with required argument)

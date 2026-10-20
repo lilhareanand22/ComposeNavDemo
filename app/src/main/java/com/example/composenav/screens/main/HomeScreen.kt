@@ -16,13 +16,14 @@ import androidx.compose.ui.unit.sp
 
 data class Product(val id: Int, val name: String, val description: String, val emoji: String)
 
-val sampleProducts = listOf(
-    Product(1, "Kotlin Book", "Learn Kotlin from scratch", "📘"),
-    Product(2, "Compose UI Kit", "Beautiful UI components", "🎨"),
-    Product(3, "Android Studio", "The official Android IDE", "🛠️"),
-    Product(4, "Jetpack Navigation", "Navigate between screens", "🧭"),
-    Product(5, "ViewModel", "Lifecycle-aware state holder", "🧠"),
-)
+val sampleProducts =
+    listOf(
+        Product(1, "Kotlin Book", "Learn Kotlin from scratch", "📘"),
+        Product(2, "Compose UI Kit", "Beautiful UI components", "🎨"),
+        Product(3, "Android Studio", "The official Android IDE", "🛠️"),
+        Product(4, "Jetpack Navigation", "Navigate between screens", "🧭"),
+        Product(5, "ViewModel", "Lifecycle-aware state holder", "🧠"),
+    )
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,19 +31,19 @@ fun HomeScreen(onProductClick: (Int, String) -> Unit) {
     Scaffold(
         topBar = {
             TopAppBar(title = { Text("🏠 Home") })
-        }
+        },
     ) { padding ->
         Column(modifier = Modifier.padding(padding)) {
             Text(
                 "Main Graph → Home Route",
                 style = MaterialTheme.typography.bodySmall,
                 color = MaterialTheme.colorScheme.outline,
-                modifier = Modifier.padding(horizontal = 16.dp)
+                modifier = Modifier.padding(horizontal = 16.dp),
             )
             Text(
                 "Tap a product to navigate with arguments →",
                 style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp)
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 4.dp),
             )
             Spacer(Modifier.height(8.dp))
             LazyColumn {
@@ -55,16 +56,20 @@ fun HomeScreen(onProductClick: (Int, String) -> Unit) {
 }
 
 @Composable
-fun ProductCard(product: Product, onClick: () -> Unit) {
+fun ProductCard(
+    product: Product,
+    onClick: () -> Unit,
+) {
     Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(horizontal = 16.dp, vertical = 6.dp)
-            .clickable { onClick() }
+        modifier =
+            Modifier
+                .fillMaxWidth()
+                .padding(horizontal = 16.dp, vertical = 6.dp)
+                .clickable { onClick() },
     ) {
         Row(
             modifier = Modifier.padding(16.dp),
-            verticalAlignment = Alignment.CenterVertically
+            verticalAlignment = Alignment.CenterVertically,
         ) {
             Text(product.emoji, fontSize = 32.sp)
             Spacer(Modifier.width(16.dp))

@@ -13,21 +13,26 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun LoginScreen(
     onLoginSuccess: () -> Unit,
-    onGoToRegister: () -> Unit
+    onGoToRegister: () -> Unit,
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
 
     Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(24.dp),
+        modifier =
+            Modifier
+                .fillMaxSize()
+                .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Center,
     ) {
         Text("🔑 Login", fontSize = 32.sp, fontWeight = FontWeight.Bold)
         Spacer(Modifier.height(8.dp))
-        Text("Auth Graph → Login Route", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.outline)
+        Text(
+            text = "Auth Graph → Login Route",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.outline,
+        )
         Spacer(Modifier.height(32.dp))
 
         OutlinedTextField(
@@ -35,7 +40,7 @@ fun LoginScreen(
             onValueChange = { email = it },
             label = { Text("Email") },
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
         )
         Spacer(Modifier.height(16.dp))
         OutlinedTextField(
@@ -44,13 +49,13 @@ fun LoginScreen(
             label = { Text("Password") },
             visualTransformation = PasswordVisualTransformation(),
             modifier = Modifier.fillMaxWidth(),
-            singleLine = true
+            singleLine = true,
         )
         Spacer(Modifier.height(24.dp))
 
         Button(
             onClick = onLoginSuccess,
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier.fillMaxWidth(),
         ) {
             Text("Login (any credentials work)")
         }

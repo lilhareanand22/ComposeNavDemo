@@ -12,15 +12,16 @@ import androidx.compose.ui.unit.sp
 @Composable
 fun ExploreScreen() {
     Scaffold(
-        topBar = { TopAppBar(title = { Text("🔍 Explore") }) }
+        topBar = { TopAppBar(title = { Text("🔍 Explore") }) },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(24.dp),
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(24.dp),
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
+            verticalArrangement = Arrangement.Center,
         ) {
             Text("🔍", fontSize = 80.sp)
             Spacer(Modifier.height(16.dp))
@@ -29,7 +30,7 @@ fun ExploreScreen() {
             Text(
                 "Main Graph → ExploreRoute",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.outline
+                color = MaterialTheme.colorScheme.outline,
             )
             Spacer(Modifier.height(16.dp))
             Card(modifier = Modifier.fillMaxWidth()) {

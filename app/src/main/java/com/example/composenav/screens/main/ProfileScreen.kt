@@ -22,16 +22,17 @@ fun ProfileScreen(onGoToSettings: () -> Unit) {
                     IconButton(onClick = onGoToSettings) {
                         Icon(Icons.Default.Settings, contentDescription = "Settings")
                     }
-                }
+                },
             )
-        }
+        },
     ) { padding ->
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-                .padding(24.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            modifier =
+                Modifier
+                    .fillMaxSize()
+                    .padding(padding)
+                    .padding(24.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             Spacer(Modifier.height(24.dp))
             Text("👤", fontSize = 80.sp)
@@ -42,7 +43,7 @@ fun ProfileScreen(onGoToSettings: () -> Unit) {
             Text(
                 "Main Graph → ProfileRoute",
                 style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.outline
+                color = MaterialTheme.colorScheme.outline,
             )
             Spacer(Modifier.height(24.dp))
             Card(modifier = Modifier.fillMaxWidth()) {

@@ -13,17 +13,20 @@ import com.example.composenav.screens.main.ProfileScreen
 import com.example.composenav.screens.main.SettingsScreen
 
 @Composable
-fun MainNavGraph(navController: NavHostController, modifier: Modifier = Modifier) {
+fun MainNavGraph(
+    navController: NavHostController,
+    modifier: Modifier = Modifier,
+) {
     NavHost(
         navController = navController,
         startDestination = HomeRoute,
-        modifier = modifier
+        modifier = modifier,
     ) {
         composable<HomeRoute> {
             HomeScreen(
                 onProductClick = { id, name ->
                     navController.navigate(ProductDetailRoute(id, name))
-                }
+                },
             )
         }
 
@@ -33,7 +36,7 @@ fun MainNavGraph(navController: NavHostController, modifier: Modifier = Modifier
 
         composable<ProfileRoute> {
             ProfileScreen(
-                onGoToSettings = { navController.navigate(SettingsRoute) }
+                onGoToSettings = { navController.navigate(SettingsRoute) },
             )
         }
 
@@ -42,7 +45,7 @@ fun MainNavGraph(navController: NavHostController, modifier: Modifier = Modifier
             ProductDetailScreen(
                 productId = route.productId,
                 productName = route.productName,
-                onBack = { navController.popBackStack() }
+                onBack = { navController.popBackStack() },
             )
         }
 

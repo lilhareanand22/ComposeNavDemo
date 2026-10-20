@@ -21,9 +21,10 @@ fun MainScreen() {
         bottomBar = {
             NavigationBar {
                 bottomNavItems.forEach { item ->
-                    val selected = currentDestination?.hierarchy?.any {
-                        it.hasRoute(item.route::class)
-                    } == true
+                    val selected =
+                        currentDestination?.hierarchy?.any {
+                            it.hasRoute(item.route::class)
+                        } == true
 
                     NavigationBarItem(
                         icon = { Icon(item.icon, contentDescription = item.label) },
@@ -37,15 +38,15 @@ fun MainScreen() {
                                 launchSingleTop = true
                                 restoreState = true
                             }
-                        }
+                        },
                     )
                 }
             }
-        }
+        },
     ) { innerPadding ->
         MainNavGraph(
             navController = navController,
-            modifier = Modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding),
         )
     }
 }
