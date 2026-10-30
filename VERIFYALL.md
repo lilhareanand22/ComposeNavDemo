@@ -28,7 +28,7 @@ The task is registered in the root [`build.gradle.kts`](file:///C:/Users/Varsha/
 // Define a custom task named 'verifyAll' that chains verification checks
 tasks.register("verifyAll") {
     group = "Verification"
-    description = "Runs compilation, unit tests, ktlint, detekt, and lint checks sequentially."
+    description = "Runs compilation, unit tests, ktlint, detekt, lint, and OWASP dependency checks sequentially."
 
     // Define the execution order of verification tools
     dependsOn(
@@ -36,7 +36,8 @@ tasks.register("verifyAll") {
         ":app:testDebugUnitTest",
         ":app:ktlintCheck",
         ":app:detekt",
-        ":app:lintDebug"
+        ":app:lintDebug",
+        ":app:dependencyCheckAnalyze"
     )
 
     // Log start message when pipeline begins
@@ -55,7 +56,7 @@ tasks.register("verifyAll") {
 
 ## 📋 Task Pipeline Breakdown
 
-The `verifyAll` task aggregates **5 key verification stages**:
+The `verifyAll` task aggregates **6 key verification stages**:
 
 | Stage | Task Name | Domain | Primary Purpose |
 | :---: | :--- | :--- | :--- |
@@ -64,6 +65,7 @@ The `verifyAll` task aggregates **5 key verification stages**:
 | **3** | `:app:ktlintCheck` | Code Formatting | Enforces official Kotlin code style and formatting rules. |
 | **4** | `:app:detekt` | Static Analysis | Detects code smells, complexity, and potential bugs. |
 | **5** | `:app:lintDebug` | Android Platform Quality | Scans for Android-specific bugs, security issues, and performance warnings. |
+| **6** | `:app:dependencyCheckAnalyze` | Software Composition Analysis | Scans 3rd-party dependencies against public CVE databases for vulnerabilities. |
 
 ---
 
@@ -119,6 +121,16 @@ The `verifyAll` task aggregates **5 key verification stages**:
   - API deprecations and SDK level incompatibilities.
   - Compose performance anti-patterns (e.g. unstable lambda captures).
 * **Reports**: [`app/build/reports/lint-results-debug.html`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build/reports/lint-results-debug.html)
+
+---
+
+### 6. `:app:dependencyCheckAnalyze`
+* **Purpose**: Scans direct and transitive 3rd-party dependencies using OWASP Dependency-Check against published CVE vulnerability databases.
+* **What it verifies**:
+  - Direct and transitive 3rd-party library security vulnerabilities.
+  - Enforces CVSS threshold (`failBuildOnCVSS = 7.0f`) to fail builds on High/Critical vulnerabilities.
+  - Supports project suppressions in [`config/owasp/suppressions.xml`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/config/owasp/suppressions.xml).
+* **Reports**: [`app/build/reports/dependency-check-report.html`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build/reports/dependency-check-report.html)
 
 ---
 

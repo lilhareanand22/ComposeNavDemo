@@ -7,6 +7,7 @@ plugins {
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.ktlint)
     alias(libs.plugins.detekt)
+    id("org.owasp.dependencycheck")
     jacoco
 }
 
@@ -80,6 +81,26 @@ detekt {
     buildUponDefaultConfig = true
     allRules = false
     config.setFrom(files("$rootDir/config/detekt/detekt.yml"))
+}
+
+configure<org.owasp.dependencycheck.gradle.extension.DependencyCheckExtension> {
+    val nvdKey = System.getenv("NVD_API_KEY")
+    autoUpdate = !nvdKey.isNullOrEmpty()
+    format = "ALL"
+    failBuildOnCVSS = 7.0f
+    failOnError = false
+    suppressionFile = "$rootDir/config/owasp/suppressions.xml"
+    scanConfigurations =
+        listOf(
+            "debugCompileClasspath",
+            "releaseCompileClasspath",
+            "debugRuntimeClasspath",
+            "releaseRuntimeClasspath"
+        )
+    if (!nvdKey.isNullOrEmpty()) {
+        nvd.apiKey = nvdKey
+    }
+    analyzers.ossIndex.enabled = true
 }
 
 tasks.withType<Detekt>().configureEach {
