@@ -63,6 +63,7 @@ android {
         textReport = true
         xmlReport = true
         htmlReport = true
+        error.add("Security")
     }
     buildFeatures {
         compose = true

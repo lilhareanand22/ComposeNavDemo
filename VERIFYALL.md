@@ -78,11 +78,13 @@ The `verifyAll` task aggregates **5 key verification stages**:
 ---
 
 ### 2. `:app:testDebugUnitTest`
-* **Purpose**: Runs all 28 local unit and Compose UI behavior tests under Robolectric.
+* **Purpose**: Runs all 35 local unit, Compose UI behavior tests under Robolectric, Konsist architecture, and Konsist security tests.
 * **What it verifies**:
   - Navigation flows (Auth Graph → Main Graph, nested tab switching).
   - Screen rendering, text input handling, and button callbacks.
   - Data class models (`Product`, `BottomNavItem`) and type-safe route serialization.
+  - **Konsist Architecture Rules** ([`ArchitectureRulesTest.kt`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/src/test/java/com/example/composenav/architecture/ArchitectureRulesTest.kt)): Enforces clean architectural layer dependencies (`navigation`, `screens`, `ui`) and ViewModel/UseCase conventions.
+  - **Konsist Security Rules** ([`SecurityRulesTest.kt`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/src/test/java/com/example/composenav/architecture/SecurityRulesTest.kt)): Prevents usage of insecure random generators (`java.util.Random`), raw hash digests (`MessageDigest`), and hardcoded secret keys.
 * **Artifacts & Reports**:
   - Test Results: [`app/build/reports/tests/testDebugUnitTest/index.html`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build/reports/tests/testDebugUnitTest/index.html)
   - JaCoCo Coverage Report: [`app/build/reports/jacoco/jacocoTestReport/html/index.html`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build/reports/jacoco/jacocoTestReport/html/index.html)
@@ -104,16 +106,16 @@ The `verifyAll` task aggregates **5 key verification stages**:
 * **What it verifies**:
   - Cyclomatic complexity and deeply nested logic.
   - Unused or dead code paths.
-  - Potential performance bottlenecks and code smell patterns.
+  - Potential performance bottlenecks, code smells, and security rule sets.
 * **Reports**: [`app/build/reports/detekt/detekt.html`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build/reports/detekt/detekt.html)
 
 ---
 
 ### 5. `:app:lintDebug`
-* **Purpose**: Scans Android project resources, code, and manifest with the official Android Lint tool.
+* **Purpose**: Scans Android project resources, code, and manifest with the official Android Lint tool with strict `Security` issue escalation (`error.add("Security")` in [`app/build.gradle.kts`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build.gradle.kts)).
 * **What it verifies**:
+  - `AndroidManifest.xml` and component security configurations (exported components, cleartext traffic).
   - Missing translations or un-localized strings.
-  - `AndroidManifest.xml` security configuration errors.
   - API deprecations and SDK level incompatibilities.
   - Compose performance anti-patterns (e.g. unstable lambda captures).
 * **Reports**: [`app/build/reports/lint-results-debug.html`](file:///C:/Users/Varsha/.gemini/antigravity/scratch/ComposeNavDemo/app/build/reports/lint-results-debug.html)
